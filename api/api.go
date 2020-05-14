@@ -35,7 +35,6 @@ func New(cfg *Config, deps *Dependencies) API {
 
 // Start starts a new API server
 func (a *api) Start() error {
-
 	server := &http.Server{
 		Addr:         a.ServerAddress,
 		ReadTimeout:  time.Duration(a.ReadTimeoutMS) * time.Millisecond,
@@ -44,10 +43,12 @@ func (a *api) Start() error {
 		// MaxHeaderBytes: api.MaxHeaderBytes,
 	}
 
-	err := server.ListenAndServe()
-	if err == nil {
+	errChan := make(chan error)
+	go func() {
 		a.Log.Infof("server started @ %s", a.ServerAddress)
-	}
+		errChan <- server.ListenAndServe()
+	}()
 
-	return err
+	return <-errChan
+
 }
