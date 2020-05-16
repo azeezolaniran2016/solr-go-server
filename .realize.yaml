@@ -1,0 +1,23 @@
+settings:
+    legacy:
+        force: true
+        interval: 100ms
+schema:
+- name: solr-server
+  path: .
+  commands:
+    install:
+        status: true
+        method: go build -o ./solr-server
+    run:
+        status: true
+        method: ./solr-server
+  watcher:
+      paths:
+      - /
+      ignore_paths:
+      - vendor
+      - .realize.yaml
+      - .git
+      extensions:
+      - go

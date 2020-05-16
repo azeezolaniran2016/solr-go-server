@@ -7,4 +7,4 @@ ENV CGO_ENABLED=0\
 
 RUN apk add --no-cache make git bash curl gcc musl-dev 
 
-CMD ["make", "dev/server"]
+RUN go get github.com/oxequa/realize

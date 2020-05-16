@@ -8,16 +8,11 @@ services:
       - solr
     env_file: 
       - ./env/dev.env
-    # environment: 
-      # - SOLR_SERVER_URL=host.docker.internal:8983/solr
-      # - SOLR_ZOO_KEEPERS=host.docker.internal:9983
-      # - SOLR_ZOO_KEEPER_ROOT=/solr.xml
-      # - SOLR_COLLECTION=techproducts
     volumes: 
       - .:/github.com/azeezolaniran2016/solr-server
       - ~/Downloads/solr-8.5.1/server/solr:/github.com/azeezolaniran2016/solr-server/solr
     command: 
-      go run main.go
+      realize start
     ports: 
       - 4040:80
   # Todo: Figure how to configure Solr
@@ -26,5 +21,5 @@ services:
     ports: 
       - 8983:8983
     volumes: 
-      - ./solr:/var/solr
+      - ./solr_data:/var/solr
      
