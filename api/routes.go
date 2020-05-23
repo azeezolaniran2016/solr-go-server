@@ -1,8 +1,6 @@
 package api
 
 import (
-	"net/http"
-
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
@@ -26,11 +24,7 @@ func (a *api) routes() *echo.Echo {
 	echoRouter.Use(middleware.Logger())
 	echoRouter.Use(middleware.Recover())
 
-	// Route => handler
-	echoRouter.GET("/", func(c echo.Context) error {
-		a.Log.Infof("hello world")
-		return c.String(http.StatusOK, "Hello, World!\n")
-	})
+	echoRouter.GET("/healthcheck", a.healthcheck)
 
 	echoRouter.GET("/query", a.query)
 

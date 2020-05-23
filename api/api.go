@@ -43,12 +43,7 @@ func (a *api) Start() error {
 		// MaxHeaderBytes: api.MaxHeaderBytes,
 	}
 
-	errChan := make(chan error)
-	go func() {
-		a.Log.Infof("server started @ %s", a.ServerAddress)
-		errChan <- server.ListenAndServe()
-	}()
-
-	return <-errChan
+	a.Log.Infof("starting server @ %s", a.ServerAddress)
+	return server.ListenAndServe()
 
 }
